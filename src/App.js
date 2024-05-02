@@ -27,18 +27,18 @@ function App() {
     {
       id: 4,
       title: '엽기떡볶이',
-      price: 19000,
+      price: 18000,
       date: new Date(2024, 5 - 1, 1),
     },
   ];
 
-  //지출 객체배열을 상태변수로 관리
+  // 지출 객체배열을 상태변수로 관리
   const [expenseList, setExpenseList] = useState(expenses);
 
-  //ExpenseForm에게 내려보낼 함수
+  // ExpenseForm에게 내려보낼 함수
   const addExpenseHandler = (newExpense) => {
-    console.log('App 컴포넌트에서 응답함');
-    console.log('new Expense:', newExpense);
+    console.log('App 컴포넌트에서 응답함!');
+    console.log('newExpense: ', newExpense);
 
     const modifyExpense = {
       ...newExpense,
@@ -48,6 +48,7 @@ function App() {
 
     setExpenseList([...expenseList, modifyExpense]);
   };
+
   return (
     <>
       <NewExpense onAddExpense={addExpenseHandler} />

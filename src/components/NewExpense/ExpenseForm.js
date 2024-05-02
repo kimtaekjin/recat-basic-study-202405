@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './ExpenseForm.css';
 
-const NewExpenseForm = ({ onSaveExpense }) => {
+const ExpenseForm = ({ onSaveExpense }) => {
   const [userInput, setUserInput] = useState({
     title: '',
     price: '',
@@ -9,8 +9,8 @@ const NewExpenseForm = ({ onSaveExpense }) => {
   });
 
   const titleChangeHandler = (e) => {
-    //userInput이 객체 형태이기 때문에 기존값은 유지하면서,
-    //이벤트가 발생한 입력창의 값만 변경하는 로직
+    // userInput이 객체 형태이기 때문에 기존값은 유지하면서, 이벤트가 발생한 입력창의 값만
+    // 변경하는 로직
     setUserInput((prevUserInput) => {
       return {
         ...prevUserInput,
@@ -19,13 +19,14 @@ const NewExpenseForm = ({ onSaveExpense }) => {
     });
   };
 
-  const priceChangeHandle = (e) => {
+  const priceChangeHandler = (e) => {
     setUserInput({
       ...userInput,
       price: e.target.value,
     });
   };
-  const dateChangeHandle = (e) => {
+
+  const dateChangeHandler = (e) => {
     setUserInput({
       ...userInput,
       date: e.target.value,
@@ -41,10 +42,9 @@ const NewExpenseForm = ({ onSaveExpense }) => {
       date: new Date(userInput.date),
     };
 
-    onSaveExpense(userInput); //App.js가 내려준 함수를 호출하면서, 올리고자
-    //하는 데이터를 매개값으로 전달.
+    onSaveExpense(newExpense); // App.js가 내려준 함수를 호출하면서, 올리고자 하는 데이터를 매개값으로 전달.
 
-    //입력창 리셋
+    // 입력창 리셋
     setUserInput({
       title: '',
       price: '',
@@ -69,7 +69,7 @@ const NewExpenseForm = ({ onSaveExpense }) => {
             type="number"
             min="100"
             step="100"
-            onChange={priceChangeHandle}
+            onChange={priceChangeHandler}
             value={userInput.price}
           />
         </div>
@@ -79,7 +79,7 @@ const NewExpenseForm = ({ onSaveExpense }) => {
             type="date"
             min="2019-01-01"
             max="2025-12-31"
-            onChange={dateChangeHandle}
+            onChange={dateChangeHandler}
             value={userInput.date}
           />
         </div>
@@ -91,4 +91,4 @@ const NewExpenseForm = ({ onSaveExpense }) => {
   );
 };
 
-export default NewExpenseForm;
+export default ExpenseForm;
