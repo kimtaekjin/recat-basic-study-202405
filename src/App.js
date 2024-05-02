@@ -1,9 +1,10 @@
 import React from 'react';
 import './App.css';
 import Expenseltem from './components/Expenseltem';
+import Expenses from './components/Expenses';
 
 
-const $h2=<h2>반가워요</h2>
+// const $h2=<h2>반가워요</h2>
 
 function App() {
   //지출 항목 객체 배열
@@ -27,10 +28,8 @@ function App() {
   ];
   return (
     <>
-    <Expenseltem title={expenses[0].title} price={expenses[0].price} date={expenses[0].date}/>
-    <Expenseltem title={expenses[1].title} price={expenses[1].price} date={expenses[1].date}/>
-    <Expenseltem title={expenses[2].title} price={expenses[2].price} date={expenses[2].date}/>
-   </>
+  <Expenses items={expenses}/>
+    </>
   );
   
 }
