@@ -1,45 +1,39 @@
-import React from 'react';
 import './App.css';
-import Expenseltem from './components/Expenseltem';
-import Expenses from './components/Expenses';
-import Hello from './Hello';
-
-
-// const $h2=<h2>반가워요</h2>
+import React from 'react';
+import Expenses from './components/Expense/Expenses';
+import NewExpense from './components/NewExpense/NewExpense';
 
 function App() {
   //지출 항목 객체 배열
-
   const expenses = [
     {
       title: '바나나',
-      price: 2000,
-      date: new Date(2023, 3, 23),
+      price: 3000,
+      date: new Date(2023, 3 - 1, 23),
     },
     {
       title: 'BBQ치킨',
       price: 20000,
-      date: new Date(2023, 5, 21),
+      date: new Date(2023, 5 - 1, 21),
     },
     {
       title: '도미노피자',
       price: 35000,
-      date: new Date(2023, 7, 4),
+      date: new Date(2023, 7 - 1, 4),
     },
   ];
+
+  //ExpenseForm에게 내려보낼 함수
+  const addExpenseHandler = (newExpense) => {
+    console.log('App 컴포넌트에서 응답함');
+    console.log('new Expense:', newExpense);
+  };
   return (
     <>
-  <Expenses items={expenses}/>
-  <Hello>
-    <ul>
-      <li>사과</li>
-      <li>포도</li>
-      <li>복숭아</li>
-    </ul>
-  </Hello>
+      <NewExpense onAddExpense={addExpenseHandler} />
+      <Expenses items={expenses} />
     </>
   );
-  
 }
 
 export default App;
