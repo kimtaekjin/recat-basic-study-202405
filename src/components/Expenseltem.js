@@ -1,6 +1,7 @@
 import React from 'react';
 import ExpenseDate from './ExpenseDate';
 import './ExpenseItem.css';
+import Card from './UI/Card';
 
 const Expenseltem = ({title,price,date}) => {
 
@@ -22,6 +23,7 @@ const Expenseltem = ({title,price,date}) => {
   const formattedPrice=new Intl.NumberFormat('ko-KR').format(price);
 
   return (
+    <Card className="circle">
     <div className='expense-item'>
       <ExpenseDate date={date} />
      <div className='expense-item__description'>
@@ -29,7 +31,8 @@ const Expenseltem = ({title,price,date}) => {
       <div className='expense-item__price'>{formattedPrice}원</div>
     </div>
   </div>
-  )
-}
+  </Card>
+  );
+};
 
 export default Expenseltem
