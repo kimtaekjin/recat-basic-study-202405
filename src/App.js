@@ -2,58 +2,71 @@ import './App.css';
 import React, { useState } from 'react';
 import Expenses from './components/Expense/Expenses';
 import NewExpense from './components/NewExpense/NewExpense';
+import CourseList from './components/CourseGoals/CourseList';
+import CourseInput from './components/CourseGoals/courseInput';
 
+const DUMMY_DATA = [
+  {
+    id: 'g1',
+    text: '리액트 컴포넌트 스타일 마스터하기',
+  },
+  {
+    id: 'g2',
+    text: 'UI 프로그래밍 고수되기',
+  },
+];
 function App() {
-  //지출 항목 객체 배열
-  const expenses = [
-    {
-      id: 1,
-      title: '바나나',
-      price: 3000,
-      date: new Date(2023, 3 - 1, 23),
-    },
-    {
-      id: 2,
-      title: 'BBQ치킨',
-      price: 20000,
-      date: new Date(2022, 5 - 1, 21),
-    },
-    {
-      id: 3,
-      title: '도미노피자',
-      price: 35000,
-      date: new Date(2021, 7 - 1, 4),
-    },
-    {
-      id: 4,
-      title: '엽기떡볶이',
-      price: 18000,
-      date: new Date(2024, 5 - 1, 1),
-    },
-  ];
+  const [goals, setGoals] = useState(DUMMY_DATA);
 
-  // 지출 객체배열을 상태변수로 관리
-  const [expenseList, setExpenseList] = useState(expenses);
+  //input에게 전달할 함수
+  const addGoalHandler = (text)=>{
+const newGoal = {
+  id:Math.random().toString(),
+  text,
+}
 
-  // ExpenseForm에게 내려보낼 함수
-  const addExpenseHandler = (newExpense) => {
-    console.log('App 컴포넌트에서 응답함!');
-    console.log('newExpense: ', newExpense);
+//상태변수(배열)수정
+// setGoals([...goals,newGoal]);
+setGoals((preGoals )=>[...prevGoals,newGoal]);
+  }
 
-    const modifyExpense = {
-      ...newExpense,
-      id: expenseList[expenseList.length - 1].id + 1,
-    };
-    console.log(modifyExpense);
+  const deleteGoalHandler = (id)=>{
+    // const updateGoals = [...goals];
+    // const index= updateGoals.findIndex((goal)=>goal.id===id);
+    // updateGoals.splice(index,1);
+    // setGoals(updateGoals);
 
-    setExpenseList([...expenseList, modifyExpense]);
-  };
+
+    // const updateGoals = goals.filter((goal)=>goal.id !==id);
+    setGoals(goals.filter((goal)=>goal.id !==id));
+  }
+
+
+  // CourseList 조건부 렌더링
+  let listContent = (
+    <p
+      style={{
+        color: 'red',
+        fonrsize: '2em',
+        textAlign: 'center',
+      }}
+    >
+      목표를 등록해 주세요
+    </p>
+  );
+
+  if (goals.length > 0) {
+    listContent = <CourseList items={goals} />;
+  }
 
   return (
-    <>
-      <NewExpense onAddExpense={addExpenseHandler} />
-      <Expenses items={expenseList} />
-    </>
+    <div>W
+      <section id="goal-form">
+        <CourseInput onAdd = {addGoalHandler};
+        <CourseInput />
+      </section>
+      <section id="goals">{listContent}</section>
+    </div>
   );
 }
 
