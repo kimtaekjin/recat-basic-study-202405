@@ -1,9 +1,7 @@
 import './App.css';
 import React, { useState } from 'react';
-import Expenses from './components/Expense/Expenses';
-import NewExpense from './components/NewExpense/NewExpense';
+import CourseInput from './components/CourseGoals/CourseInput';
 import CourseList from './components/CourseGoals/CourseList';
-import CourseInput from './components/CourseGoals/courseInput';
 
 const DUMMY_DATA = [
   {
@@ -12,62 +10,64 @@ const DUMMY_DATA = [
   },
   {
     id: 'g2',
-    text: 'UI 프로그래밍 고수되기',
+    text: 'UI 프로그래밍 삽고수 되기',
   },
 ];
-function App() {
+
+const App = () => {
   const [goals, setGoals] = useState(DUMMY_DATA);
 
-  //input에게 전달할 함수
-  const addGoalHandler = (text)=>{
-const newGoal = {
-  id:Math.random().toString(),
-  text,
-}
+  // Input에게 전달할 함수
+  const addGoalHandler = (text) => {
+    // console.log('전달받은 텍스트: ', text);
+    const newGoal = {
+      id: Math.random().toString(),
+      text,
+    };
 
-//상태변수(배열)수정
-// setGoals([...goals,newGoal]);
-setGoals((preGoals )=>[...prevGoals,newGoal]);
-  }
+    // 상태변수(배열) 수정
+    // setGoals([...goals, newGoal]);
+    setGoals((prevGoals) => [...prevGoals, newGoal]);
+  };
 
-  const deleteGoalHandler = (id)=>{
-    // const updateGoals = [...goals];
-    // const index= updateGoals.findIndex((goal)=>goal.id===id);
-    // updateGoals.splice(index,1);
+  // 삭제 이벤트 핸들러를 CourseItem까지 내려보내야 함.
+  const deleteGoalHandler = (id) => {
+    // console.log('전달된 id: ', id);
+    // const updateGoals = [...goals]; // 상태 배열 그대로 복사해서 가져옴.
+    // const index = updateGoals.findIndex((goal) => goal.id === id);
+    // updateGoals.splice(index, 1);
     // setGoals(updateGoals);
 
+    // const updateGoals = goals.filter((goal) => goal.id !== id);
 
-    // const updateGoals = goals.filter((goal)=>goal.id !==id);
-    setGoals(goals.filter((goal)=>goal.id !==id));
-  }
-
+    setGoals(goals.filter((goal) => goal.id !== id));
+  };
 
   // CourseList 조건부 렌더링
   let listContent = (
     <p
       style={{
         color: 'red',
-        fonrsize: '2em',
+        fontSize: '2em',
         textAlign: 'center',
       }}
     >
-      목표를 등록해 주세요
+      목표를 등록해 주세요!!
     </p>
   );
 
   if (goals.length > 0) {
-    listContent = <CourseList items={goals} />;
+    listContent = <CourseList items={goals} onDelete={deleteGoalHandler} />;
   }
 
   return (
-    <div>W
+    <div>
       <section id="goal-form">
-        <CourseInput onAdd = {addGoalHandler};
-        <CourseInput />
+        <CourseInput onAdd={addGoalHandler} />
       </section>
       <section id="goals">{listContent}</section>
     </div>
   );
-}
+};
 
 export default App;
