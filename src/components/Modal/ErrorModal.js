@@ -2,9 +2,13 @@ import React from 'react';
 import styles from './ErrorModal.module.css';
 import Card from '../UI/Card';
 import Button from '../UI/Button/Button';
-
-//portal 기능을 사용하기 위한 import
 import ReactDOM from 'react-dom';
+
+// Define Portal component
+const Portal = ({ children, destId }) => {
+  const portalRoot = document.getElementById(destId);
+  return ReactDOM.createPortal(children, portalRoot);
+};
 
 const BackDrop = ({ onConfirm }) => {
   return <div className={styles.backdrop} onClick={onConfirm} />;
@@ -26,21 +30,16 @@ const ModalOverlay = ({ title, message, onConfirm }) => {
   );
 };
 
-//Modal을 사용하는 쪽에서 모달 제목과 메세지가 props로 전달될 것이다.
-//onConfirm ->AddUsers쪽에서 상태관리하고 있는 모달 노출 여부를 제어하는 함수.
-
 const ErrorModal = ({ title, message, onConfirm }) => {
   return (
     <>
-      {ReactDOM.createPortal(
-        <BackDrop onConfirm={onConfirm} />,
-        document.getElementById('backdrop-root'),
-      )}
+      <Portal destId="backdrop-root">
+        <BackDrop onConfirm={onConfirm} />
+      </Portal>
 
-      {ReactDOM.createPortal(
-        <ModalOverlay title={title} message={message} onConfirm={onConfirm} />,
-        document.getElementById('overlay-root'),
-      )}
+      <Portal destId="overlay-root">
+        <ModalOverlay title={title} message={message} onConfirm={onConfirm} />
+      </Portal>
     </>
   );
 };
