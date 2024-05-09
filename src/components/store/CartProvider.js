@@ -14,7 +14,7 @@ const cartReducer = (state, action) => {
   if (action.type === 'ADD') {
     // 신규 아이템 받기
     const newCartItem = action.item;
-    // 기존 장바구니에 등록된 메뉴인지 아닌지에 따라 처리를 다르게 해야 할 것 같아요.
+    // 기존 장바구니에 등록된 메뉴인지 아닌지에 따라 처리를 다르게 함.
     // findIndex: 콜백을 통해 배열을 순회하면서 지정한 조건에 맞는 요소의 인덱스를 반환.
     const index = state.items.findIndex(
       // 기존 상태 배열의 id를 하나씩 얻어서 현재 추가하고자 하는 상품의 id와 같은 요소의 인덱스 반환.
@@ -22,7 +22,7 @@ const cartReducer = (state, action) => {
     );
 
     // 기존 카트 아이템
-    const existingItem = [...state.items]; // 기존 배열을 복사.
+    const existingItem = [...state.items]; // 기존 배열을 복사.[... = 스프레드 문법]
     const prevCartItem = existingItem[index]; // 위에서 찾은 인덱스로 요소를 하나만 지목
 
     let updatedItem;
